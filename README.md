@@ -10,11 +10,12 @@ This utility fetches geolocation (latitude, longitude) data using the OpenWeathe
 city, state, or zip code inputs.
 
 ## Setup
-Requirements 
+Requirements:
+
 Python3 is set up and configured
 (https://www.python.org/downloads/)
 
-Run the manual step below:
+Run the steps below in the root of the project:
 1. python3 -m venv .venv
 2. source .venv/bin/activate
 3. pip install -r requirements.txt 
@@ -22,7 +23,7 @@ Run the manual step below:
 
 ## Example of command running within the virtual .venv
 ```
-$ python geoloc_util.py --locations "Madison, WI" "12345"
+$ python3 geoloc_util.py --locations "Madison, WI" "12345"
 Location: Madison, WI, Latitude: 43.0731, Longitude: -89.4012
 Location: Schenectady (12345), US, Latitude: 42.8142, Longitude: -73.9396
 ```
