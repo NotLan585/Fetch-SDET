@@ -6,6 +6,7 @@ import sys
 
 from abbreviation_to_name import find_full_name
 
+# Normally I would shun whoever puts an API key in plain code(Wanted to state my peace)
 API_KEY = 'f897a99d971b5eef57be6fafa0d83239'
 BASE_URL = 'http://api.openweathermap.org/geo/1.0/direct'
 BASE_URL_ZIPCODE = "http://api.openweathermap.org/geo/1.0/zip"
