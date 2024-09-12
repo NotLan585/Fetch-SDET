@@ -40,11 +40,15 @@ def get_location_by_zip(zip_code: string) -> dict | str:
         response = requests.get(f"{BASE_URL_ZIPCODE}?zip={zip_code},US&appid={API_KEY}")
         data = response.json()
         if 'lat' in data and 'lon' in data:
+            # Break data down to be returned
             return {
                 'latitude': data['lat'],
                 'longitude': data['lon'],
                 'name': f"{data['name']} ({zip_code}), {data['country']}"
             }
+        else:
+            return f"{data['message']}"
+    # Handle Exception
     except Exception as e:
         return f"Error fetching location for {zip_code}: {str(e)}"
 
@@ -55,20 +59,26 @@ def main(locations):
     :return: Printed to console
     """
     results = []
-
+    # Loop through locations
     for loc in locations:
+        # Check to see if location is a City, State
         if ',' in loc:
             city = loc.split(',')[0]
             state = loc.split(',')[1]
             result = get_location_by_name(city=city, state=state)
+            # If none is returned append to notify user
             if result is None:
                 result = f"Location {loc}, could not be found."
             results.append(result)
+        # Check to see if string is numeric
         elif loc.isnumeric():
             result = get_location_by_zip(loc)
+            # If none is returned append to notify user
             if result is None:
                 result = f"Location {loc}, could not be found."
             results.append(result)
+        else:
+            results.append('Unable to determine City, State or Zip')
 
     # Print results
     for result in results:
@@ -79,12 +89,11 @@ def main(locations):
             print(f"Location: {result['name']}, Latitude: {result['latitude']}, Longitude: {result['longitude']}")
 
 if __name__ == "__main__":
+    # Setup Arguments to be passed into test
     parser = argparse.ArgumentParser(description='Get geolocation data from city/state or zip code.')
-    parser.add_argument('--locations', nargs='+', required=True, help='List of cities/states or zip codes.')
+    parser.add_argument('--locations', nargs='+', required=True, help='List of cities/states or zip codes.'
+                                                                      ' Example "geoloc_util.py --locations "Madison,'
+                                                                      ' WI" "12345""')
     args = parser.parse_args()
-
-    if not args.locations:
-        print("No locations provided!")
-        sys.exit(1)
 
     main(args.locations)
