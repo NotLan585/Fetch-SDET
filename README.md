@@ -16,6 +16,8 @@
 This utility fetches geolocation (latitude, longitude) data using the OpenWeather Geocoding API based on 
 city, state, or zip code inputs.
 
+`(Github Action setup on push to validate suite still is 100% green)`
+
 ## Setup
 Requirements:
 
